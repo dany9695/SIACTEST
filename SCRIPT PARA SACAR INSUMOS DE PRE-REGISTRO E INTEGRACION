@@ -1,0 +1,244 @@
+select distinct 
+'TipoPermisionario_y_ModalidadoServicio[' || char('  ')|| PER.icvetipopermisiona ||  char('  ')||'|' || char('  ')||
+      (select ctipopermisionario from PERTIPOPERMISIONAR where icvetipopermisiona= PER.icvetipopermisiona) ||  char('  ') || '|' || char('   ')||
+           per.icvetiposervicio||  char('  ')||'|' || char('  ')||
+           (select ctiposervicio from pertiposervicio where icvetiposervicio= per.icvetiposervicio) || char('  ') || '],' ||
+'        DatosPermisionario_Arrendador[' || char('  ')||
+           emp.itipopersona ||  char('  ')||'|' || char('  ')|| 
+           emp.ICVEEMPRESA||  char('  ')||'|' || char('  ')|| emp.CRFC||  char('  ')||'|' || char('  ')||   emp.CRAZONSOCIAL ||  char('  ')||'|' || char('  ')||
+           emp.CAPEPATERNO||  char('  ')||'|' || char('  ')|| emp.CAPEMATERNO||  char('  ')||'|' || char('  ')||
+           emp.ICVESITUACION||  char('  ')||'|' || char('  ')|| empsit.CDSCSITUACION||  char('  ')||'|' || char('  ')|| 
+           'icvepermiso, ' || per.ICVEPERMISO ||  char('  ')||'|' || char('  ')|| 'permiso, ' || per.cpermiso ||  char('  ')||'|' || char('  ') || 
+           gru.icvegrupo ||  char('  ')||'|' || char('  ')|| gru.cdscgrupo  ||  char('  ')|| '],' ||
+'        DatosRepresentanteLegal[' || char('  ')||
+           persona.ICVEPERSONA||  char('  ')||'|' || char('  ')||   persona.CRFC||  char('  ')||'|' || char('  ')||  persona.CNOMBRE||  char('  ')||'|' || char('  ')||
+           persona.CAPPATERNO||  char('  ')||'|' || char('  ')|| persona.CAPMATERNO ||  char('  ')|| '],' ||
+'        DatosModalidad_Servicio[' || char('   ')||
+           per.icvetiposervicio||  char('  ')||'|' || char('  ')||
+           (select ctiposervicio from pertiposervicio where icvetiposervicio= per.icvetiposervicio) ||  char('  ')||'|' || char('  ') ||
+           grldep. cdscdepartamento ||  char('  ')||']' || char('  ') 
+INSUMOS
+FROM Empempresa emp, EMPREPRESENTANTELE rep, emppersona persona, Perpermiso per, EMPEMPXPERMISIO empper, GRLDEPARTAMENTO grldep, EMPSITUACION empsit, Empgrupo gru 
+WHERE emp.icveempresa = rep.icveempresa
+and rep.icvepersona = persona.icvepersona and rep.lactivo=1
+and emp.icveempresa = per.icveempresa
+AND emp.icveempresa = empper.icveempresa
+AND emp.icvesituacion = empsit.icvesituacion   
+AND emp.icvegrupo = gru.icvegrupo
+AND per.icvetipopermisiona = empper.icvetipopermisiona
+AND per.icvetiposervicio = empper.icveservicio
+AND per.ICVEDEPARTAMENTO = grldep.ICVEDEPARTAMENTO
+AND per.inuminclusion = 0
+AND empsit.icvesituacion in(2,5)
+AND per.ICVEDEPARTAMENTO = 1   --64 usuario orizaba
+AND (
+  (per.icvetipopermisiona =1 and per.icvetiposervicio in(1)) --or 
+  --(per.icvetipopermisiona =2 and per.icvetiposervicio in(10,65,67)) or 
+  --(per.icvetipopermisiona =7 and per.icvetiposervicio in(35,145)) --or 
+ -- (per.icvetipopermisiona =23 and per.icvetiposervicio in(4,68,73,74,98,146))
+  );
+
+
+SELECT * FROM INTTRAMITES where ICVETRAMITE = 7469795;
+
+SELECT * FROM INTTRAMITEDETALLE where ICVETRAMITE = 7469942;
+
+SELECT * FROM INTTRAMITEDETALLE WHERE CCAMPO LIKE '%CNIVDolly'
+
+SELECT * FROM EMPPERSONA WHERE CRFC = 'AAQM610917QJA'
+
+--PARA CAMBIAR EL RFC EN LAS SOLICITUDES CON FIEL
+
+update EMPPERSONA set crfc='AAQM610917QJA' where  ICVEPERSONA = 130994;
+
+commit;
+
+SELECT * FROM EMPPERSONA WHERE CRFC = 'ROCM650718GA8'
+
+SELECT * FROM VEHVEHICULO WHERE CNIV = '2FZAATBV0AAJ41594' ---canada
+
+SELECT * FROM VEHVEHICULO
+
+--MODELO 2017--
+SELECT * FROM VEHVEHICULO WHERE CNIV = '3HAMSAZR9FG720691' ---mexico
+
+SELECT * FROM VEHVEHICULO WHERE CNIV = '3MBAA2C82KM017836'
+
+SELECT * FROM VEHVEHICULO WHERE CNIV = '3HAMSAZR9FG720691'
+
+----------AÑO 2011--------------------------------------
+
+SELECT * FROM VEHVEHICULO WHERE CNIV = '1FDEF3G66BEBC5243'
+
+SELECT * FROM VEHVEHICULO WHERE CNIV = '3BKDL00X5HF863935'
+
+SELECT * FROM APLPLACAASIGNADA WHERE CPLACA = '009ZF1'
+
+SELECT * FROM APLPLACAASIGNADA WHERE CPLACA = '001ZF6'
+
+SELECT * FROM APLPLACAASIGNADA WHERE CPLACA = '001ZF1'
+
+SELECT * FROM PERTRAMITE WHERE ICVETRAMITE = '7461920'
+
+
+
+
+SELECT * FROM APLPLACAASIGNADA 
+
+1624805
+0919GCC07122011010106000
+0919GCC07122011010106297
+
+
+1624805
+
+SELECT * FROM PERPERMISO WHERE CPERMISO = ''
+
+SELECT * FROM EMPPERSONA WHERE CRFC='GUOJ631002B73'
+
+SELECT * FROM EMPPERSONA WHERE ICVEPERSONA =  76552 
+
+UPDATE EMPPERSONA SET crfc='MAR980114GQA' WHERE ICVEPERSONA = 76552 
+
+SELECT * FROM grlusrxdepto where ICVEUSUARIO = 1
+
+commit;
+
+insert into grlusrxdepto(ICVEUSUARIO, ICVEDEPARTAMENTO,LFIEL)
+values(1,1,null);
+
+select * from grlusrxdepto where ICVEUSUARIO = 1
+
+select * from VEHFILTROXVEHIC where ICVETRAMITE = 7464453
+
+select * from  VEHFILTINSPECCION where ICVETIPOPERMISIONA = 1
+
+-------------------------------pantalla verificacion----------------------------
+SELECT	VI.ICVEVEHINS,
+       VI.CNIV,
+       VI.CMOTOR,
+       VI.ICVEMARCA,
+       VI.ICVECLASE,
+       VI.ICVETIPO,
+       VI.IMODELO,
+       VI.CPLACA,
+       VI.DTREVISION,
+       VI.DTPRESREV,
+       VI.LANTECEDENTE,
+       VI.LTIPOSER,
+       VI.COTROS,
+       VI.ICVEPAIS,
+       VI.LRVNIV,
+       VI.LRVMOTOR,
+       VI.ITIPOCABINA,
+       VI.ILARGUEROSMOD,
+       VI.COBSER,
+       VI.IHVDIAM,
+       VI.DHVMEDIDA,
+       VI.CNCALCOMANIA,
+       VI.CTIEMPOCORREC,
+       VI.LREMAUTCOM,
+       VI.LAUTORIZADO,
+       VI.LFUERASER,
+       VI.CENGOMADO,
+       VI.LCOLORENGOMADO,
+       VI.LNIVVEHNAC,
+       VI.LNIVFAB,
+       VI.LVEHINJERTOS,
+       VI.LVEHTRAMOS,
+       VI.LREFACOR,
+       VI.LINCEJES,
+       VI.LVEHPARTEXT,
+       VI.DTCAPTURA,
+       VI.ICVEVEHICULO,
+       VI.ICVEINSPECTOR,
+       MAR.CDSCMARCA,
+       CLA.CDSCCLASE,
+       TIP.CDSCTIPO,
+       PAIS.CNOMBRE,
+       VI.CPROCABINA,
+       VI.LVEHALAR,
+       VI.LVEHREC,
+       INSP.CNOMBRE AS CINSPECTOR,
+       VI.CNOMMOD,
+       VI.CRFCMOD,
+       VI.CDOMMOD,
+       VI.LALARG,
+       VI.LREFORZ,
+       DEP.CDSCDEPARTAMENTO,
+       INSP.CCREDENCIAL,
+       VI.IHVSISTEMA,
+       INSP.COFICOMISION,
+       INSP.CRFC,
+       INSP.DTOFICIO,
+       VI.ICVEMODALIDAD,
+       PERM.CTIPOPERMISIONARIO,
+       VI.LAPROBADO,
+       VI.TSAUTORIZADO,
+       VI.COBSERVAUTORIZ,
+       VI.INUMINSPECCION,
+       VI.DTPROXREVISION,
+       VI.TSINSPECCION,
+       VI.ICVESISTFRENOS,
+       VI.ICVEFILTROCOMBO,
+       VI.ITRAMITE,
+       VI.LCARESEINTER
+FROM IVVEHINS VI
+  JOIN VEHMARCA MAR ON MAR.ICVEMARCA = VI.ICVEMARCA
+  JOIN VEHCLASE CLA ON CLA.ICVECLASE = VI.ICVECLASE
+  JOIN VEHTIPO TIP ON TIP.ICVETIPO = VI.ICVETIPO 
+  JOIN GRLPAIS PAIS ON PAIS.ICVEPAIS = VI.ICVEPAIS 
+  JOIN IVVEHINSPECTOR INSP ON INSP.ICVEINSPECTOR = VI.ICVEINSPECTOR
+  JOIN GRLDEPARTAMENTO DEP ON DEP.ICVEDEPARTAMENTO = INSP.ICVEDEPARTAMENTO 
+  LEFT JOIN PERTIPOPERMISIONAR PERM ON PERM.ICVETIPOPERMISIONA = VI.ICVEMODALIDAD
+  WHERE   LAUTORIZADO = 1
+    AND  UCASE(CNIV) = '3BKDL00X5HF863935'
+
+
+    ----------------------------------------------query para sacar insumos y hacer pruebas en QA, correo con fecha 19/05/2020--------------
+   
+    select distinct 
+'TipoPermisionario_y_ModalidadoServicio[' || char('  ')|| PER.icvetipopermisiona ||  char('  ')||'|' || char('  ')||
+      (select ctipopermisionario from PERTIPOPERMISIONAR where icvetipopermisiona= PER.icvetipopermisiona) ||  char('  ') || '|' || char('   ')||
+           per.icvetiposervicio||  char('  ')||'|' || char('  ')||
+           (select ctiposervicio from pertiposervicio where icvetiposervicio= per.icvetiposervicio) || char('  ') || '],' ||
+'        DatosPermisionario_Arrendador[' || char('  ')||
+           emp.itipopersona ||  char('  ')||'|' || char('  ')|| 
+           emp.ICVEEMPRESA||  char('  ')||'|' || char('  ')|| emp.CRFC||  char('  ')||'|' || char('  ')||   emp.CRAZONSOCIAL ||  char('  ')||'|' || char('  ')||
+           emp.CAPEPATERNO||  char('  ')||'|' || char('  ')|| emp.CAPEMATERNO||  char('  ')||'|' || char('  ')||
+           emp.ICVESITUACION||  char('  ')||'|' || char('  ')|| empsit.CDSCSITUACION||  char('  ')||'|' || char('  ')|| 
+           'icvepermiso, ' || per.ICVEPERMISO ||  char('  ')||'|' || char('  ')|| 'permiso, ' || per.cpermiso ||  char('  ')||'|' || char('  ') || 
+           gru.icvegrupo ||  char('  ')||'|' || char('  ')|| gru.cdscgrupo  ||  char('  ')|| '],' ||
+'        DatosRepresentanteLegal[' || char('  ')||
+           persona.ICVEPERSONA||  char('  ')||'|' || char('  ')||   persona.CRFC||  char('  ')||'|' || char('  ')||  persona.CNOMBRE||  char('  ')||'|' || char('  ')||
+           persona.CAPPATERNO||  char('  ')||'|' || char('  ')|| persona.CAPMATERNO ||  char('  ')|| '],' ||
+'        DatosModalidad_Servicio[' || char('   ')||
+           per.icvetiposervicio||  char('  ')||'|' || char('  ')||
+           (select ctiposervicio from pertiposervicio where icvetiposervicio= per.icvetiposervicio) ||  char('  ')||'|' || char('  ') ||
+           grldep. cdscdepartamento ||  char('  ')||']' || char('  ') 
+INSUMOS 
+FROM Empempresa emp, EMPREPRESENTANTELE rep, emppersona persona, Perpermiso per, EMPEMPXPERMISIO empper, GRLDEPARTAMENTO grldep, EMPSITUACION empsit, Empgrupo gru 
+WHERE emp.icveempresa = rep.icveempresa
+and rep.icvepersona = persona.icvepersona
+and emp.icveempresa = per.icveempresa
+AND emp.icveempresa = empper.icveempresa
+AND emp.icvesituacion = empsit.icvesituacion   
+AND emp.icvegrupo = gru.icvegrupo
+AND per.icvetipopermisiona = empper.icvetipopermisiona
+AND per.icvetiposervicio = empper.icveservicio
+AND per.ICVEDEPARTAMENTO = grldep.ICVEDEPARTAMENTO
+AND per.inuminclusion = 0
+AND empsit.icvesituacion in(2,5)
+AND per.ICVEDEPARTAMENTO = 64
+AND rep.lactivo =1
+AND (
+  (per.icvetipopermisiona =1 and per.icvetiposervicio in(1)) or 
+  (per.icvetipopermisiona =2 and per.icvetiposervicio in(10,65,67)) or 
+  (per.icvetipopermisiona =7 and per.icvetiposervicio in(35,145)) or 
+  (per.icvetipopermisiona =23 and per.icvetiposervicio in(4,68,73,74,98,146)) 
+  )
+  and  emp.icveempresa in((select ICVEEMPRESA from EMPEMPRESA where CRFC in('TUCA2107035N9','VAMM810220EU6') ));
+
+
+
+
